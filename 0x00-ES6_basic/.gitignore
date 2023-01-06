@@ -1,0 +1,6 @@
+/node_modules
+/package-lock.json
+/package.json
+/nodesource_setup.sh
+/babel.config.js
+/eslintrc.js
