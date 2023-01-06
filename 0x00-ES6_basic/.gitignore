@@ -3,4 +3,5 @@
 /package.json
 /nodesource_setup.sh
 /babel.config.js
-/eslintrc.js
+/.eslintrc.js
+/.gitignore
