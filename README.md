@@ -300,3 +300,30 @@ Iterators and for-of loops are useful features in JavaScript because they allow 
 
 Overall, iterators and for-of loops are powerful features of JavaScript that allow you to iterate over the elements of an object and perform a specific action for each element. They can be particularly useful when working with arrays, strings, and other iterable objects.
 
+## How to define default parameter values for the function parameters in JavaScript.
+In JavaScript, you can define default parameter values for function parameters to specify a default value that will be used if an argument is not provided when the function is called. This can be useful for optional arguments and can make your code more flexible and easier to understand.
+
+To define a default parameter value for a function parameter, you can use the ```=``` operator followed by the default value. For example:
+```javascript
+function greet(name = 'John') {
+  console.log(`Hello, ${name}!`);
+}
+```
+
+In this example, the ```greet``` function has a default parameter value of 'John' for the ```name``` parameter. If the ```name``` argument is not provided when the function is called, the default value of 'John' will be used.
+
+You can also use expressions as default parameter values. For example:
+```javascript
+function add(x = 0, y = 0) {
+  return x + y;
+}
+
+console.log(add(5));  // Outputs 5
+console.log(add(5, 10));  // Outputs 15
+console.log(add());  // Outputs 0
+```
+
+In this example, the ```add``` function has default parameter values of 0 for the ```x``` and ```y``` parameters. If either of these arguments is not provided when the function is called, the default value of 0 will be used.
+
+Overall, default parameter values are a useful feature in JavaScript that allow you to specify a default value for function parameters. They can make your code more flexible and easier to understand by allowing you to specify optional arguments.
+
