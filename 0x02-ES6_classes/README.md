@@ -1,16 +1,7 @@
 # 0x02-ES6_classes
 
-**You**: I will ask you to write an interview answer to the following questions:
-
-- How does one define a Class in JS?
-- How does one add methods to a class in JS?
-- Why and how does one add a static method to a class in JS?
-- How does one extend a class from another in JS?
-- What is metaprogramming and symbols?
-
-Write an interview answer to the first question.
-
-**ChatGPT**: In JavaScript, a class is a blueprint for creating objects (a particular data structure), providing initial values for state (member variables or attributes), and implementations of behavior (member functions or methods). Classes in JavaScript are created using the `class` keyword, and it typically follows the same structure as in other object-oriented programming languages.
+## How does one define a Class in JS?
+ In JavaScript, a class is a blueprint for creating objects (a particular data structure), providing initial values for state (member variables or attributes), and implementations of behavior (member functions or methods). Classes in JavaScript are created using the `class` keyword, and it typically follows the same structure as in other object-oriented programming languages.
 
 For example, a class for creating a Person object might be defined like this:
 
@@ -40,9 +31,8 @@ console.log(john.age); // 30
 
 It's worth noting that the class definition creates a single shared function object which is used as the prototype for new objects, so that we do not need to re-create methods each time a new object is created.
 
-**You**: Write an interview answer to the next question
-
-**ChatGPT**: To add methods to a class in JavaScript, you can define them inside the class definition, after the constructor. For example, you might add a method to the Person class that prints out the person's name and age:
+## How does one add methods to a class in JS?
+ To add methods to a class in JavaScript, you can define them inside the class definition, after the constructor. For example, you might add a method to the Person class that prints out the person's name and age:
 
 ```javascript
 class Person {
@@ -74,9 +64,8 @@ john.display() // "Name: John Doe, Age: 30"
 
 It's important to note that, when you add methods to the prototype, all instances of the class will share the same function instance. This means that if you later modify the method, that change will be reflected in all instances of the class, and it can be an effective way to implement inheritance.
 
-**You**: Write an interview answer to the next question
-
-**ChatGPT**: A static method in JavaScript is a method that is associated with the class itself, rather than with instances of the class. This means that a static method can be called on the class, without needing to first create an instance of the class.
+## Why and how does one add a static method to a class in JS?
+ A static method in JavaScript is a method that is associated with the class itself, rather than with instances of the class. This means that a static method can be called on the class, without needing to first create an instance of the class.
 
 To create a static method, you use the `static` keyword before the method name in the class definition:
 
@@ -105,9 +94,8 @@ Static methods are often used to create utility functions that don't need to be 
 
 One important thing to note, is that you cannot use the keyword `this` inside a static method, since there is no instance of the class to provide the context for the method. But you can use the class name to call other methods or variables that you defined on the class.
 
-**You**: Write an interview answer to the next question
-
-**ChatGPT**: In JavaScript, you can use the `extends` keyword to create a new class that inherits from an existing class. This allows you to reuse the code in the existing class and extend it with additional properties and methods.
+## How does one extend a class from another in JS?
+ In JavaScript, you can use the `extends` keyword to create a new class that inherits from an existing class. This allows you to reuse the code in the existing class and extend it with additional properties and methods.
 
 For example, you might create a new class called `Employee` that inherits from the `Person` class:
 
@@ -141,9 +129,8 @@ Name: Jane Smith, Age: 25, Title: Manager
 
 It's worth noting that the class inheritance in javascript is different than the class inheritance in classical OOP languages, the class `extends` keyword creates a prototype-based inheritance, which is different than the class-based one.
 
-**You**: Write an interview answer to the next question
-
-**ChatGPT**: Metaprogramming is a programming technique where the program has the ability to manipulate or modify its own structure and behavior at runtime. In JavaScript, this can be achieved through the use of symbols, which are unique and immutable values that can be used as property keys on objects.
+## What is metaprogramming and symbols?
+ Metaprogramming is a programming technique where the program has the ability to manipulate or modify its own structure and behavior at runtime. In JavaScript, this can be achieved through the use of symbols, which are unique and immutable values that can be used as property keys on objects.
 
 Symbols can be created using the `Symbol()` function, like this:
 
