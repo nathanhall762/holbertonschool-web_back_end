@@ -5,8 +5,10 @@ export default function cleanSet(set, startString) {
     return cleanString;
   }
   set.forEach((value) => {
-    if (value.startsWith(startString)) {
-      cleanString += `${value.slice(startString.length)}-`;
+    if (value !== undefined) {
+        if (value.startsWith(startString)) {
+          cleanString += `${value.slice(startString.length)}-`;
+        }
     }
   });
   return cleanString.slice(0, -1);
