@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-function createInt8TypedArray(length, position, value) {
+export default function createInt8TypedArray(length, position, value) {
 //   if (position >= length || position < 0) {
 //     throw new Error('Position outside range');
 //   }

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-function cleanSet(set, startString) {
+export default function cleanSet(set, startString) {
   let cleanString = '';
   set.forEach((value) => {
     if (value.startsWith(startString)) {
