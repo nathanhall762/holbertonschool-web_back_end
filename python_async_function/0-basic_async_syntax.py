@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # countasync.py
 """
 This module contains an asynchronous coroutine named
