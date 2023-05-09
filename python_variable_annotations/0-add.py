@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-
 """
-A module that provides a function to sum a list of mixed integers and floats.
+This module provides the function add, which takes two float numbers
+as input and returns their sum as a float.
+
+Example:
+>>> add(2.5, 3.7)
+6.2
 """
 
-from typing import List, Union
 
-
-def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
+def add(a: float, b: float) -> float:
     """
-    Calculate the sum of a list of mixed integers and floats.
-
+    Return the sum of two floating point numbers.
     Args:
-        mxd_lst: A list of integers and/or floats.
+    a: The first float number.
+    b: The second float number.
 
     Returns:
-        The sum of the input list as a float.
+    A float representing the sum of the two input numbers.
     """
-    return sum(mxd_lst)
+    return a + b
