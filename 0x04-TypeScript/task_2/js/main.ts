@@ -51,9 +51,9 @@ const isDirector = (employee: Director | Teacher): employee is Director => {
 
 const executeWork = (employee: Director | Teacher) => {
     if (isDirector(employee)) {
-        employee.workDirectorTasks();
+        return employee.workDirectorTasks();
     } else {
-        employee.workTeacherTasks();
+        return  employee.workTeacherTasks();
     }
 }
 
