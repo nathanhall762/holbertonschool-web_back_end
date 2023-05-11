@@ -1,10 +1,12 @@
-import asyncio
-from typing import Any
+#!/usr/bin/env python3
 """
 This module contains a function that creates a new asyncio.Task from a call to
 wait_random with a specified maximum delay. The created Task is returned to
 the caller for use in an asyncio event loop.
 """
+
+import asyncio
+from typing import Any
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
