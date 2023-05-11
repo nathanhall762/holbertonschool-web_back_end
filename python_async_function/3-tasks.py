@@ -23,6 +23,6 @@ def task_wait_random(max_delay: int) -> Any:
     - An asyncio.Task object created by the asyncio event loop, representing
     the asynchronous execution of wait_random with the specified max_delay
     value.
-"""
+    """
     loop = asyncio.get_event_loop()
     return loop.create_task(wait_random(max_delay))
