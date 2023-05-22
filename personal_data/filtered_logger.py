@@ -8,7 +8,25 @@ import logging
 
 
 class RedactingFormatter(logging.Formatter):
-    """Redacting Formatter class"""
+    """Redacting Formatter class
+
+    This formatter extends the logging.Formatter class to redact specified
+    fields in log records.
+
+    Attributes:
+        REDACTION (str): The string to use for redaction.
+        FORMAT (str): The log record format string.
+        SEPARATOR (str): The character that separates fields in log messages.
+
+    Args:
+        fields (list of str): A list of strings representing the fields to be
+        redacted.
+
+    Methods:
+        format(record: logging.LogRecord) -> str:
+            Formats the specified log record, redacting the specified fields.
+
+    """
 
     REDACTION: str = "***"
     FORMAT: str = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: \
