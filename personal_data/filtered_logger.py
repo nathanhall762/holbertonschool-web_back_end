@@ -5,9 +5,45 @@ does things related to logging i think
 import re
 from typing import List
 import logging
+import os
+import mysql.connector
+from mysql.connector import errorcode
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+
+def get_db():
+    """
+    Connect to the MySQL database using the credentials from environment
+    variables.
+
+    Returns:
+        mysql.connector.connection.MySQLConnection: The connection to the
+        MySQL database.
+
+    """
+    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
+
+    try:
+        db = mysql.connector.connect(
+            user=username,
+            password=password,
+            host=host,
+            database=db_name
+        )
+        return db
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Error: Access denied. Invalid credentials.")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Error: Database does not exist.")
+        else:
+            print("Error: Failed to connect to the database.")
+        raise
 
 
 def get_logger() -> logging.Logger:
