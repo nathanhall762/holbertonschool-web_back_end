@@ -13,7 +13,7 @@ from mysql.connector import errorcode
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
-def get_db():
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """
     Connect to the MySQL database using the credentials from environment
     variables.
