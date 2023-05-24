@@ -19,6 +19,7 @@ auth = Auth()
 
 @app.before_request
 def before_request_handler():
+    """before_request handler method"""
     if request.path not in ['/api/v1/status/',
                             '/api/v1/unauthorized/',
                             '/api/v1/forbidden/']:
