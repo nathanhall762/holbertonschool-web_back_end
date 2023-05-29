@@ -7,6 +7,19 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
+from api.v1.auth.session_auth import SessionAuth
+from api.v1.auth.basic_auth import BasicAuth
+
+
+# Determine the authentication mechanism based on the value of the AUTH_TYPE
+# environment variable
+auth_type = os.environ.get('AUTH_TYPE')
+
+# Assign the appropriate authentication mechanism to the auth variable
+if auth_type == 'session_auth':
+    auth = SessionAuth()
+else:
+    auth = BasicAuth()
 
 
 app = Flask(__name__)
