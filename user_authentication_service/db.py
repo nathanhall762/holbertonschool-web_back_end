@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+
 from user import Base, User
 
 
@@ -46,10 +47,20 @@ class DB:
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
-                raise NoResultFound(
-                    "No user found matching the given criteria")
+                raise NoResultFound("No user found matching \
+                                    the given criteria")
             return user
         except NoResultFound as e:
             raise e
         except InvalidRequestError as e:
             raise InvalidRequestError("Wrong query arguments") from e
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update a user's attributes
+        """
+        user = self.find_user_by(id=user_id)
+        for attr, value in kwargs.items():
+            if not hasattr(user, attr):
+                raise ValueError(f"Invalid attribute '{attr}'")
+            setattr(user, attr, value)
+        self._session.commit()
