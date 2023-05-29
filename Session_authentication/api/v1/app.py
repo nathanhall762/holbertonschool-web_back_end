@@ -11,17 +11,6 @@ from api.v1.auth.session_auth import SessionAuth
 from api.v1.auth.basic_auth import BasicAuth
 
 
-# Determine the authentication mechanism based on the value of the AUTH_TYPE
-# environment variable
-auth_type = os.environ.get('AUTH_TYPE')
-
-# Assign the appropriate authentication mechanism to the auth variable
-if auth_type == 'session_auth':
-    auth = SessionAuth()
-else:
-    auth = BasicAuth()
-
-
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
@@ -35,6 +24,10 @@ if auth_type == "auth":
 if auth_type == "basic_auth":
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
+
+if auth_type == "session_auth":
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
 
 
 @app.errorhandler(404)

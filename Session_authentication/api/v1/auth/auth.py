@@ -8,6 +8,7 @@ from typing import List, TypeVar
 class Auth:
     """Class used for basic authentication
     """
+
     def __init__(self):
         pass
 
