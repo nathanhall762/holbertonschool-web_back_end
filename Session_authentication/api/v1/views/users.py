@@ -23,7 +23,8 @@ def view_one_user(user_id: str = None) -> str:
       - User ID or 'me'
     Return:
       - User object JSON representation
-      - 404 if the User ID doesn't exist or if 'me' is used and not authenticated
+      - 404 if the User ID doesn't exist or if 'me'
+      is used and not authenticated
     """
     if user_id == 'me':
         if request.current_user is None:
@@ -38,8 +39,9 @@ def view_one_user(user_id: str = None) -> str:
     return jsonify(user.to_json())
 
 
-
-@app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/users/<user_id>',
+                 methods=['DELETE'],
+                 strict_slashes=False)
 def delete_user(user_id: str = None) -> str:
     """ DELETE /api/v1/users/:id
     Path parameter:
