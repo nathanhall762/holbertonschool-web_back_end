@@ -32,7 +32,7 @@ class Auth:
             hashed_password = user.hashed_password
             if checkpw(password.encode('utf-8'), hashed_password):
                 return True
-        except ValueError:
+        except NoResultFound:
             pass
         return False
 
