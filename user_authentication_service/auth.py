@@ -66,6 +66,17 @@ class Auth:
         """ Destroys a session. """
         self._db.update_user(user_id, session_id=None)
 
+    def get_reset_password_token(self, email: str) -> str:
+        user = self._db.find_user_by(email=email)
+
+        if not user:
+            raise ValueError("User not found.")
+
+        token = str(uuid.uuid4())
+        self._db.update_user(user.id, reset_token=token)
+
+        return token
+
 
 def _generate_uuid() -> str:
     """Generate a new UUID and return it as a string."""
