@@ -37,9 +37,10 @@ class Auth:
             pass
         return False
 
-    def _generate_uuid() -> str:
-        """Generate a new UUID and return it as a string."""
-        return str(uuid.uuid4())
+
+def _generate_uuid() -> str:
+    """Generate a new UUID and return it as a string."""
+    return str(uuid.uuid4())
 
 
 def _hash_password(password: str) -> bytes:
