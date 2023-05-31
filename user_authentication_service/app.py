@@ -40,5 +40,21 @@ def login():
         abort(401)  # Incorrect login information
 
 
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    session_id = request.cookies.get('session_id')
+
+    if session_id:
+        user = AUTH.get_user_from_session_id(session_id)
+
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect('/')
+        else:
+            abort(403)  # User with session ID not found
+    else:
+        abort(403)  # No session ID provided
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
