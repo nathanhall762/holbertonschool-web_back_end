@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import bcrypt
+from bcrypt import checkpw, gensalt, hashpw
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
@@ -25,10 +25,21 @@ class Auth:
             )
             return user
 
+    def valid_login(self, email: str, password: str) -> bool:
+        """Check if the provided email and password are valid for login."""
+        try:
+            user = self._db.find_user_by(email=email)
+            hashed_password = user.hashed_password
+            if checkpw(password.encode('utf-8'), hashed_password):
+                return True
+        except ValueError:
+            pass
+        return False
+
 
 def _hash_password(password: str) -> bytes:
     """Hashes a password using bcrypt
     """
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    salt = gensalt()
+    hashed_password = hashpw(password.encode('utf-8'), salt)
     return hashed_password
