@@ -4,6 +4,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 import uuid
+from typing import Union
 
 
 class Auth:
@@ -52,6 +53,13 @@ class Auth:
         salt = gensalt()
         hashed_password = hashpw(password.encode('utf-8'), salt)
         return hashed_password.decode('utf-8')
+
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+        if session_id is None:
+            return None
+
+        user = self._db.find_user_by(session_id=session_id)
+        return user if user else None
 
 
 def _generate_uuid() -> str:
