@@ -37,6 +37,22 @@ class Auth:
             pass
         return False
 
+    def create_session(self, email: str) -> str:
+        """Create a new session for the user and return the session ID."""
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
+        except NoResultFound:
+            return None
+
+    def _hash_password(self, password: str) -> str:
+        """Hash a password using bcrypt."""
+        salt = gensalt()
+        hashed_password = hashpw(password.encode('utf-8'), salt)
+        return hashed_password.decode('utf-8')
+
 
 def _generate_uuid() -> str:
     """Generate a new UUID and return it as a string."""
