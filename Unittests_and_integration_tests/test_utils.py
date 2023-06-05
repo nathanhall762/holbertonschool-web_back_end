@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 import unittest
-from parameterized import parameterized
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
+from functools import wraps
+from utils import memoize
 
-from utils import get_json
 
+class TestMemoize(unittest.TestCase):
 
-class TestGetJson(unittest.TestCase):
+    class TestClass:
+        def a_method(self):
+            return 42
 
-    @parameterized.expand([
-        ("http://example.com", {"payload": True}),
-        ("http://holberton.io", {"payload": False})
-    ])
-    def test_get_json(self, test_url, test_payload):
-        mock_response = MagicMock()
-        mock_response.json.return_value = test_payload
+        @memoize
+        def a_property(self):
+            return self.a_method()
 
-        with patch('utils.requests.get', return_value=mock_response) \
-             as mock_get:
-            result = get_json(test_url)
+    def test_memoize(self):
+        test_obj = self.TestClass()
 
-            mock_get.assert_called_once_with(test_url)
-            self.assertEqual(result, test_payload)
+        with patch.object(test_obj, 'a_method') as mock_method:
+            result1 = test_obj.a_property()
+            result2 = test_obj.a_property()
+
+            mock_method.assert_called_once()
+            self.assertEqual(result1, 42)
+            self.assertEqual(result2, 42)
