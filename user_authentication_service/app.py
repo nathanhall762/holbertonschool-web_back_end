@@ -71,5 +71,9 @@ def profile():
         abort(403)  # No session ID provided
 
 
+@app.route('/reset_password', methods=['POST'])
+def get_reset_password():
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
