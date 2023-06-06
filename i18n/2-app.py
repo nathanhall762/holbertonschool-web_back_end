@@ -13,7 +13,7 @@ Author:
     Your Name
 """
 from flask import Flask, render_template, request
-from flask_babel import Babel, gettext
+from flask_babel import Babel
 
 app = Flask(__name__)
 babel = Babel(app)
@@ -31,16 +31,6 @@ class Config(object):
 app.config.from_object(Config)
 
 
-def get_locale():
-    """
-    Determine the best match for the supported languages based on client's preferences.
-
-    Returns:
-        str: Best match language code.
-    """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 @app.route('/')
 def index():
     """
@@ -49,7 +39,19 @@ def index():
     Returns:
         str: Rendered HTML template.
     """
-    return render_template('1-index.html', gettext=gettext)
+    return render_template('2-index.html')
+
+
+@babel.localeselector
+def get_locale():
+    """
+    Determine the best match for the supported languages based on client's
+    preferences.
+
+    Returns:
+        str: Best match language code.
+    """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == '__main__':
