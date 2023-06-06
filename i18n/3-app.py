@@ -39,9 +39,7 @@ def index():
     Returns:
         str: Rendered HTML template.
     """
-    return render_template('3-index.html',
-                           home_title=_("Welcome to Holberton"),
-                           home_header=_("Hello world!"))
+    return render_template('3-index.html')
 
 
 @babel.localeselector
