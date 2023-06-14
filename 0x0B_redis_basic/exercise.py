@@ -5,7 +5,7 @@ from typing import Union
 
 
 class Cache:
-    def __init__(self): -> None:
+    def __init__(self):
         # Create an instance of the Redis client and store it as a private
         # variable
         self._redis = redis.Redis()
@@ -13,11 +13,7 @@ class Cache:
         # Flush the Redis instance to clear any existing data
         self._redis.flushdb()
 
-    def store((self,
-               data) Union[str,
-                           bytes,
-                           int,
-                           float]) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         # Generate a random key using uuid
         key = str(uuid.uuid4())
 
