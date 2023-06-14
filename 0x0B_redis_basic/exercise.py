@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+""" Module for redis db storage. """
 import redis
 import uuid
 from typing import Union, Callable, Optional
