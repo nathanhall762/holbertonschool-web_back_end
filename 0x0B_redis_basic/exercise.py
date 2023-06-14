@@ -4,21 +4,50 @@ import redis
 from typing import Union
 
 
+import redis
+from typing import Union
+
+
 class Cache:
     def __init__(self):
-        # Create an instance of the Redis client and store it as a private
-        # variable
-        self._redis = redis.Redis()
+        self.redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
-        # Flush the Redis instance to clear any existing data
-        self._redis.flushdb()
-
-    def store(self, data: Union[str, bytes, int, float]) -> str:
-        # Generate a random key using uuid
-        key = str(uuid.uuid4())
-
-        # Store the input data in Redis using the random key
-        self._redis.set(key, data)
-
-        # Return the key as a string
+    def store(self, value):
+        key = str(uuid.uuid4())  # Generate a unique key using UUID
+        self.redis_client.set(key, value)
         return key
+
+    def get(self, key, fn=None):
+        value = self.redis_client.get(key)
+        if value is not None:
+            if isinstance(value, bytes):
+                # Decode the byte string using UTF-8
+                value = value.decode("utf-8")
+            if fn is not None and callable(fn):
+                return fn(value)
+            else:
+                return value
+        else:
+            return None
+
+    def get_str(self, key):
+        return self.get(key, fn=lambda d: d.decode("utf-8"))
+
+    def get_int(self, key):
+        return self.get(key, fn=int)
+
+
+# Testing the implementation
+cache = Cache()
+
+TEST_CASES = {
+    b"foo": None,
+    123: int,
+    "bar": lambda d: d.decode("utf-8")
+}
+
+for value, fn in TEST_CASES.items():
+    key = cache.store(value)
+    assert cache.get(key, fn=fn) == value
+
+print("All test cases passed!")
