@@ -10,15 +10,16 @@ from typing import Union
 
 class Cache:
     def __init__(self):
-        self.redis_client = redis.Redis(host='localhost', port=6379, db=0)
+        self._redis = redis.Redis()
+        self._redis.flushdb()
 
-    def store(self, value):
+    def store(self, data: Union[str, bytes, int, float]):
         key = str(uuid.uuid4())  # Generate a unique key using UUID
-        self.redis_client.set(key, value)
+        self._redis.set(key, data)
         return key
 
     def get(self, key, fn=None):
-        value = self.redis_client.get(key)
+        value = self._redis.get(key)
         if value is not None:
             if isinstance(value, bytes):
                 # Decode the byte string using UTF-8
