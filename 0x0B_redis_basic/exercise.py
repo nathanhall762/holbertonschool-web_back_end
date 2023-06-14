@@ -87,9 +87,9 @@ class Cache():
     def get_str(self, key: str) -> str:
         """Method for retrieving string data from Redis."""
         return self.get(key, str)  # Call the 'get' method with the 'str'
-    function
+    # function
 
     def get_int(self, key: str) -> int:
         """Method for retrieving integer data from Redis."""
         return self.get(key, int)  # Call the 'get' method with the 'int'
-    function
+    # function
