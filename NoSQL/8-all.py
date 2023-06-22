@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" List all documents in the collection school """
+""" lists all documents in a collection """
 
 
 import pymongo
