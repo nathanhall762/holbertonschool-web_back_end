@@ -16,3 +16,8 @@ rl.on('line', (name) => {
     console.log(`Your name is: ${name}`);
   }
 });
+
+rl.on('SIGINT', () => {
+  console.log('This important software is now closing');
+  rl.close();
+});
