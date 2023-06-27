@@ -10,29 +10,41 @@ const app = http.createServer(async (req, res) => {
   if (method === 'GET' && url === '/') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello Holberton School!\n');
+    res.end('Hello Holberton School!');
   } else if (method === 'GET' && url === '/students') {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.write('This is the list of our students\n');
-
     try {
       const studentsDict = await countStudents(databasePath);
 
-      const fields = Object.keys(studentsDict);
-      const lastFieldIndex = fields.length - 1;
+      const studentsOutput = [];
+      let totalStudents = 0;
 
-      fields.forEach((field, index) => {
-        const { numStudents, names } = studentsDict[field];
-        const studentList = names.join(', ');
+      for (const field in studentsDict) {
+        if (Object.prototype.hasOwnProperty.call(studentsDict, field)) {
+          const { numStudents, names } = studentsDict[field];
+          const studentList = names.join(', ');
 
-        res.write(`Number of students in ${field}: ${numStudents}. List: ${studentList}`);
-
-        if (index !== lastFieldIndex) {
-          res.write('\n');
+          studentsOutput.push(`Number of students in ${field}: ${numStudents}. List: ${studentList}`);
+          totalStudents += numStudents;
         }
-      });
+      }
+
+      console.log(`Number of students: ${totalStudents}`);
+
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/plain');
+      res.write('This is the list of our students\n');
+      res.write(`Number of students: ${totalStudents}\n`);
+
+      for (let i = 0; i < studentsOutput.length - 1; i += 1) {
+        res.write(`${studentsOutput[i]}\n`);
+      }
+
+      if (studentsOutput.length > 0) {
+        res.write(studentsOutput[studentsOutput.length - 1]);
+      }
     } catch (error) {
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'text/plain');
       res.end(`Error: ${error.message}`);
     }
 
@@ -40,7 +52,7 @@ const app = http.createServer(async (req, res) => {
   } else {
     res.statusCode = 404;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Not found\n');
+    res.end('Not found');
   }
 });
 
