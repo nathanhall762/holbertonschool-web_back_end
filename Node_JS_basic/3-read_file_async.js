@@ -1,40 +1,47 @@
 // 3.
 const fs = require('fs');
 
-function countStudents(path) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf8', (error, data) => {
-      if (error) {
-        reject(new Error('Cannot load the database'));
-      } else {
-        const lines = data.trim().split('\n');
-        const students = {};
+async function countStudents(file) {
+  // counts students
+  let content;
+  try {
+    content = await fs.promises.readFile(file, 'utf8');
+  } catch (error) {
+    throw new Error('Cannot load the database');
+  }
 
-        for (let i = 1; i < lines.length; i += 1) {
-          const line = lines[i].trim();
-          if (line !== '') {
-            const [firstname, , , field] = line.split(',');
+  let lines = content.split('\n');
+  lines = lines.filter((line) => line !== '').slice(1);
+  console.log(`Number of students: ${lines.length}`);
 
-            if (!students[field]) {
-              students[field] = [];
-            }
+  const field = lines.map((line) => line.split(',')[3]);
+  const eachField = [...new Set(field)];
 
-            students[field].push(firstname);
-          }
-        }
+  const dict = {};
 
-        console.log(`Number of students: ${lines.length - 1}`);
+  for (let i = 0; i < eachField.length; i += 1) {
+    const numStudents = field.filter(
+      (fieldName) => fieldName === eachField[i],
+    ).length;
 
-        for (const field in students) {
-          if (Object.prototype.hasOwnProperty.call(students, field)) {
-            console.log(`Number of students in ${field}: ${students[field].length}. List: ${students[field].join(', ')}`);
-          }
-        }
+    const studentsPerField = lines.filter(
+      (line) => line.split(',')[3] === eachField[i],
+    );
 
-        resolve();
-      }
-    });
-  });
+    const names = studentsPerField.map((line) => line.split(',')[0]);
+
+    console.log(
+      `Number of students in ${
+        eachField[i]
+      }: ${numStudents}. List: ${names.join(', ')}`,
+    );
+
+    dict[eachField[i]] = {
+      numStudents,
+      names,
+    };
+  }
+  return dict;
 }
 
 module.exports = countStudents;

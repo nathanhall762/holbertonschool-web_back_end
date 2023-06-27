@@ -17,10 +17,18 @@ const app = http.createServer(async (req, res) => {
     res.write('This is the list of our students\n');
 
     try {
-      await countStudents(databasePath);
+      const studentsDict = await countStudents(databasePath);
+
+      for (const field in studentsDict) {
+        if (Object.prototype.hasOwnProperty.call(studentsDict, field)) {
+          const { numStudents, names } = studentsDict[field];
+          const studentList = names.join(', ');
+
+          res.write(`Number of students in ${field}: ${numStudents}. List: ${studentList}\n`);
+        }
+      }
     } catch (error) {
       res.end(`Error: ${error.message}`);
-      return;
     }
 
     res.end();
