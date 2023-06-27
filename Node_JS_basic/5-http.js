@@ -19,14 +19,19 @@ const app = http.createServer(async (req, res) => {
     try {
       const studentsDict = await countStudents(databasePath);
 
-      for (const field in studentsDict) {
-        if (Object.prototype.hasOwnProperty.call(studentsDict, field)) {
-          const { numStudents, names } = studentsDict[field];
-          const studentList = names.join(', ');
+      const fields = Object.keys(studentsDict);
+      const lastFieldIndex = fields.length - 1;
 
-          res.write(`Number of students in ${field}: ${numStudents}. List: ${studentList}\n`);
+      fields.forEach((field, index) => {
+        const { numStudents, names } = studentsDict[field];
+        const studentList = names.join(', ');
+
+        res.write(`Number of students in ${field}: ${numStudents}. List: ${studentList}`);
+
+        if (index !== lastFieldIndex) {
+          res.write('\n');
         }
-      }
+      });
     } catch (error) {
       res.end(`Error: ${error.message}`);
     }
