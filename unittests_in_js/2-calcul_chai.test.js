@@ -9,7 +9,7 @@ describe('calculateNumber', function () {
             expect(result1).to.equal(6);
 
             const result2 = calculateNumber('SUM', 1.4, 7.9);
-            expect(result2).to.equal(10);
+            expect(result2).to.equal(9);
         });
     });
 
