@@ -41,6 +41,7 @@ async function countStudents(file) {
       names,
     };
   }
+  console.log(dict);
   return dict;
 }
 

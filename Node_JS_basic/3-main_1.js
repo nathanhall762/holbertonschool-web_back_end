@@ -1,6 +1,6 @@
 const countStudents = require('./3-read_file_async');
 
-countStudents('database.csv')
+const x = countStudents('database.csv')
   .then(() => {
     console.log('Done!');
   })
@@ -8,3 +8,4 @@ countStudents('database.csv')
     console.log(error);
   });
 console.log('After!');
+console.log(x);

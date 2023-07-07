@@ -35,3 +35,5 @@ Thumbs.db
 /*.egg-info/
 Session_authentication/api/v1/__pycache__/app.cpython-38.pyc
 Session_authentication/api/v1/views/__pycache__/users.cpython-38.pyc
+
+node_modules/
